@@ -1,0 +1,20 @@
+{ 
+    "name": "catective Blog",
+    "version": "1.0.0",
+    "description": "you need to have something like this at project's root",
+    "main": "index.js",
+    "scripts": {
+        "build": "npm run tailwind:build && hugo --minify",
+        "build:dev": "npm run tailwind:build && hugo --minify && hugo server -D",
+        "tailwind:build": "npx tailwindcss -i ./themes/catective/assets/css/main.css -o ./themes/catective/assets/css/style.css --minify"
+    },
+    "keywords": [],
+    "author": "Your name",
+    "license": "MIT",
+    "devDependencies": {
+        "tailwindcss": "^4.1.8"
+    },
+    "dependencies": {
+        "@tailwindcss/cli": "^4.1.8"
+    }
+}

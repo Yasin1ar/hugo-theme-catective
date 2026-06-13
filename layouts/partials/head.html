@@ -1,0 +1,58 @@
+<head>
+    <script>
+        (function(){
+            var t=localStorage.getItem('theme');
+            var d=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';
+            document.documentElement.setAttribute('data-theme',t||d);
+        })();
+    </script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="{{ if .IsHome }}{{ site.Params.description }}{{ else }}{{ .Description }}{{ end }}" />
+    <meta name="author" content="{{ site.Params.author | default "Author" }}" />
+    <meta name="keywords" content="{{ with site.Params.keywords }}{{ delimit . ", " }}{{ end }}" />
+    {{ with site.Params.google_site_verification }}
+    <meta name="google-site-verification" content="{{ . }}" />
+    {{ end }}
+
+    <meta property="og:title" content="{{ if .IsHome }}{{ site.Title }}{{ else }}{{ .Title }}{{ end }}" />
+    <meta property="og:description" content="{{ if .IsHome }}{{ site.Params.description }}{{ else }}{{ .Description }}{{ end }}" />
+    <meta property="og:image" content='{{ (site.Params.avatar_image | default "avatar.png") | relURL | absURL }}' />
+    <meta property="og:url" content="{{ .Permalink }}" />
+    <meta property="og:type" content="website" />
+
+    <link rel="icon" type="image/x-icon" href='{{ "favicon.ico" | relURL }}' />
+
+    <title>{{ if .IsHome }}{{ site.Title }}{{ else }}{{ printf "%s | %s" .Title site.Title }}{{ end }}</title>
+
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "Person",
+            "name": "{{ site.Params.author | default "Author" }}",
+            "jobTitle": "{{ site.Params.job_title | default "Developer" }}",
+            "url": "{{ site.BaseURL }}",
+            "sameAs": {{ site.Params.sameAs | default (slice "https://github.com" "https://linkedin.com") | jsonify }},
+            "description": "{{ site.Params.description | default "" }}"
+        }
+    </script>
+
+    {{ $style := resources.Get "css/style.css" | resources.Minify }}
+    <link rel="stylesheet" href="{{ $style.RelPermalink }}">
+
+    {{ $themeToggle := resources.Get "js/theme-toggle.js" | js.Build | minify | fingerprint }}
+    <script src="{{ $themeToggle.RelPermalink }}" integrity="{{ $themeToggle.Data.Integrity }}" crossorigin="anonymous" defer></script>
+    {{ $mobileMenu := resources.Get "js/mobile-menu.js" | js.Build | minify | fingerprint }}
+    <script src="{{ $mobileMenu.RelPermalink }}"
+            integrity="{{ $mobileMenu.Data.Integrity }}"
+            crossorigin="anonymous"
+            defer></script>
+
+    {{ if eq .Section "posts" }}
+        {{ $ratingSystem := resources.Get "js/rating-system.js" | js.Build | minify | fingerprint }}
+        <script src="{{ $ratingSystem.RelPermalink }}"
+                integrity="{{ $ratingSystem.Data.Integrity }}"
+                crossorigin="anonymous"
+                defer></script>
+    {{ end }}
+</head>

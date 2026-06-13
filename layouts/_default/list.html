@@ -1,0 +1,47 @@
+{{ define "main" }}
+<div class="py-5 dark:bg-neutral-500 bg-neutral-200 font-mono flex flex-1 flex-col">
+    <h1 class="text-4xl font-bold mb-3 text-center font-bangers">{{ .Title }}</h1>
+    {{ if .Content }}
+    <div class="font-mono mb-8 text-center text-xl font-bold bg-neutral-900 text-sky-100 dark:text-amber-100 p-2">{{ .Content }}</div>
+    {{ end }}
+
+    <div class="mx-[2rem] grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+        {{ if eq .Kind "term" }}
+        {{ range .Pages }}
+        <article
+        class="bg-stone-800 hover:bg-stone-600 rounded-lg overflow-hidden shadow-lg transition-transform duration-300 hover:transform hover:scale-105">
+        <a href="{{ .Permalink }}" class="block no-underline">
+            <div class="p-6">
+                <h2 class="text-2xl font-bold mb-2 text-stone-100">{{ .Title }}</h2>
+                <div class="text-stone-200">
+                    {{ if .Summary }}{{ .Summary | truncate 150 }}{{ else }}{{ .Content | plainify | truncate 150
+                    }}{{ end }}
+                    </div>
+                </div>
+            </a>
+        </article>
+        {{ end }}
+        {{ else }}
+        {{ range .Pages }}
+        <article
+        class="bg-stone-800 hover:bg-stone-600 rounded-lg overflow-hidden shadow-lg transition-transform duration-300 hover:transform hover:scale-105">
+        <a href="{{ .Permalink }}" class="block no-underline">
+            <div class="p-6">
+                <h2 class="text-2xl font-bold mb-2 text-stone-100">{{ .Title }}</h2>
+                    {{ if ne .Page.Section "posts" }}
+                        <div class="mt-4 text-sm text-stone-400">
+                            {{ len .Pages }} {{ if eq (len .Pages) 1 }}post{{ else }}posts{{ end }}
+                        </div>
+                    {{ end }}
+                    <div class="text-stone-200">
+                        {{ if .Summary }} {{ .Summary | truncate 150 }} {{ else }} {{ .Content | plainify | truncate 150
+                        }} {{ end }}
+                    </div>
+                </div>
+            </a>
+        </article>
+        {{ end }}
+        {{ end }}
+    </div>
+</div>
+{{ end }}

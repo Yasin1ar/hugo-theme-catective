@@ -1,0 +1,45 @@
+{{ define "main" }}
+{{ $hasPosts := where .Site.RegularPages "Section" "posts" }}
+{{ $author := site.Params.author | default "Author" }}
+{{ $authorImage := site.Params.avatar_image | default "avatar.png" }}
+{{ $authorImageDark := site.Params.avatar_image_dark | default "avatar-dark.png" }}
+{{ $hero := site.Params.hero | default site.Params.description }}
+<section class="bg-persian-pattern flex-1 flex flex-col dark:select-text-green-700 ">
+    <!-- hero card section -->
+    <section class="py-4  md:border-[0.3rem] border-black md:dark:bg-stone-700 md:bg-neutral-400 rounded-xl m-auto w-[94%] md:w-3/5 font-ComicRelief flex md:my-[7rem] md:px-2 flex-col md:flex-row items-center max-w-6xl md:mx-auto {{ if not $hasPosts }} mb-8 md:m-auto{{ end }}">
+        <div class="relative my-[2rem] lg:my-1 md:hidden lg:block w-[16rem] h-[16rem] md:mx-[1rem] shrink-0">
+            <img src="{{ $authorImage | relURL }}"
+                 alt="{{ $author }}"
+                 class="absolute inset-0 w-full h-full rounded-full object-cover aspect-square ring-[0.3rem] md:ring-[0.2rem] ring-black block dark:hidden" />
+            <img src="{{ $authorImageDark | relURL }}"
+                 alt="{{ $author }}"
+                 class="absolute inset-0 w-full h-full rounded-full object-cover aspect-square ring-[0.3rem] md:ring-[0.2rem] ring-black hidden dark:block" />
+        </div>
+        <div class="max-w-2xl border-[0.3rem] dark:bg-stone-700 bg-neutral-400 md:border-0 border-black px-4 text-center  rounded-xl md:text-left">
+            <p class="text-xl/9 md:text-2xl/10 dark:text-amber-100 text-black">
+                {{ if $hero }}{{ $hero | safeHTML }}{{ else }}Hey! I'm <span class="whitespace-nowrap text-black rounded-md px-2 py-1 font-bangers text-3xl bg-amber-100">{{ $author }}</span>. A developer who enjoys building things on the web. Welcome to my blog.{{ end }}
+            </p>
+        </div>
+    </section>
+
+    {{ if $hasPosts }}
+    <section class="dark:bg-neutral-800 bg-neutral-400 border-black border-t-[0.3rem] font-mono mt-[0.5rem] mx-auto w-full" id="blog">
+        <h2 class="font-bangers text-3xl dark:text-neutral-500 text-neutral-950 text-center">Latest Post</h2>
+        <div class="grid gap-6 m-auto md:w-3/5 pb-[1rem] w-[94%] max-w-6xl">
+            {{ range first 1 $hasPosts }}
+            <article class="bg-neutral-300 dark:bg-neutral-500 p-6 rounded-xl dark:hover:bg-neutral-400 hover:bg-neutral-500 md:border-[0.3rem] border-black transition-colors w-full">
+                <h3 class="font-bangers text-slate-950 text-2xl mb-2 ">
+                    <a href="{{ .RelPermalink }}" class="dark:hover:text-amber-200 hover:text-sky-100">{{ .Title }}</a>
+                </h3>
+                <p class="text-neutral-800 mb-2">{{ .Date.Format "January 2, 2006" }}</p>
+                <div class="font-mono font-bold text-xl custom-prose-home">{{ .Summary | truncate 250 | safeHTML }}</div>
+                <div class="flex justify-center mt-4">
+                    <a href="{{ .RelPermalink }}" class="inline-block font-bangers text-slate-950 text-2xl rounded-md px-2 dark:bg-amber-100 bg-sky-100 dark:hover:bg-amber-200 hover:bg-sky-200">Read More</a>
+                </div>
+            </article>
+            {{ end }}
+        </div>
+    </section>
+    {{ end }}
+</section>
+{{ end }}

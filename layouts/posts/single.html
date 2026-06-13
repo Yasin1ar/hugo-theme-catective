@@ -1,0 +1,82 @@
+{{ define "main" }}
+<div class="dark:bg-neutral-800 bg-neutral-200 font-mono px-0">
+    <div class="max-w-3xl mx-auto dark:bg-stone-500 bg-neutral-300 md:border-x-[0.3rem] border-black">
+        <div class="text-center mb-8 dark:bg-neutral-900 bg-neutral-500 text-neutral-950 dark:text-amber-200 p-2 font-bangers">
+            <h1 class="text-3xl">{{ .Title }}</h1>
+            {{ $dateMachine := .Date | time.Format "2006-01-02T15:04:05-07:00" }}
+            {{ $dateHuman := .Date | time.Format ":date_long" }}
+            <time datetime="{{ $dateMachine }}" class="text-sm font-mono">{{ $dateHuman }}</time>
+            <div class="flex flex-wrap justify-center gap-2 mt-1 font-verdana font-bold">
+                {{ partial "terms.html" (dict "taxonomy" "categories" "page" .) }}
+                {{ partial "terms.html" (dict "taxonomy" "tags" "page" .) }}
+            </div>
+        </div>
+
+        <article class="prose prose-lg px-[1rem] max-w-none text-xl font-ComicRelief pb-[3rem] custom-prose">
+            {{ .Content }}
+        </article>
+
+        <div class="text-center pt-4 pb-[2rem] bg-neutral-500 dark:bg-neutral-900">
+            <h2 class="text-xl font-bold dark:text-amber-200 text-neutral-950 mb-4">Rate this post</h2>
+            <div class="flex justify-center gap-2 mb-4 star-rating" id="star-rating">
+                {{ range $i := (seq 5) }}
+                <button class="text-3xl transition-colors cursor-pointer text-stone-600 hover:text-amber-400"
+                        data-rating="{{ $i }}"
+                        aria-label="Rate {{ $i }} star{{ if ne $i 1 }}s{{ end }}">
+                    ★
+                </button>
+                {{ end }}
+            </div>
+            <p class="dark:text-stone-400 text-sky-100 text-sm">Your feedback helps us improve!</p>
+        </div>
+
+        <div id="prankModal" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center">
+            <div class="bg-neutral-900 p-8 rounded-lg w-full max-w-md mx-4 text-center">
+                <h3 class="text-2xl font-bold dark:text-amber-200 text-sky-100 mb-4">kidding!</h3>
+                <p class="text-stone-300 mb-6">We don't actually have a rating system! But thanks anyway! it's so sweet of you ...</p>
+                <button id="closeModalBtn" class="bg-stone-700 hover:bg-stone-600 text-white px-6 py-2 rounded-lg transition-colors">
+                    Close
+                </button>
+            </div>
+        </div>
+
+        {{ $related := .Site.RegularPages.Related . | first 3 }}
+        {{ if not $related }}
+            {{ $related = .Site.RegularPages.RelatedIndices . "tags" | first 3 }}
+        {{ end }}
+        {{ if not $related }}
+            {{ $related = where (where .Site.RegularPages "Type" "posts") "Permalink" "ne" .Permalink | first 3 }}
+        {{ end }}
+
+        {{ if $related }}
+        <div class="relative my-4">
+            <div class="absolute inset-0 flex items-center" aria-hidden="true">
+                <div class="w-full border-dotted border-t-[0.3rem] border-black"></div>
+            </div>
+            <div class="relative flex justify-center">
+                <span class="bg-neutral-600 px-4 text-2xl font-bangers mb-2 border-x-[0.3rem] border-black text-sky-100 dark:text-amber-200">More to Explore</span>
+            </div>
+        </div>
+        <div class="px-[1rem] pb-8">
+            <div class="grid gap-4">
+                {{ range $related }}
+                <a href="{{ .RelPermalink }}" class="block bg-neutral-700 dark:bg-neutral-900 text-sky-100 dark:text-amber-200 p-4 rounded hover:bg-neutral-800 transition-colors">
+                    <h4 class="text-xl font-bold mb-2">{{ .Title }}</h4>
+                    <time datetime="{{ .Date | time.Format "2006-01-02T15:04:05-07:00" }}" class="text-sm font-mono">
+                        {{ .Date | time.Format ":date_long" }}
+                    </time>
+                    {{ with .GetTerms "tags" }}
+                    <div class="flex flex-wrap gap-2 mt-2">
+                        {{ range . }}
+                        <span class="text-sm text-neutral-950 dark:text-amber-200 bg-sky-200 dark:bg-zinc-800 px-2 py-1 rounded">{{ .LinkTitle }}</span>
+                        {{ end }}
+                    </div>
+                    {{ end }}
+                </a>
+                {{ end }}
+            </div>
+        </div>
+        {{ end }}
+    </div>
+</div>
+{{ end }}

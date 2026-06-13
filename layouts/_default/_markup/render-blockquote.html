@@ -1,0 +1,23 @@
+{{- $basicTypes := slice "note" "tip" "important" "warning" "caution" -}}
+
+{{- if eq .AlertType "center" }}
+  {{- /* Center blockquote – keep it simple */ -}}
+  <blockquote class="blockquote-center">{{ .Text }}</blockquote>
+
+{{- else if and (in $basicTypes .AlertType) (not .AlertTitle) (not .AlertSign) }}
+  {{- /* GitHub basic alert syntax: > [!NOTE] etc. */ -}}
+  {{- $type := .AlertType | lower -}}
+  {{- $title := humanize .AlertType -}}
+  <div class="markdown-alert markdown-alert-{{ $type }}">
+    <p class="alert-title">{{ $title }}</p>
+    <div class="alert-content">
+      {{ .Text | safeHTML }}
+    </div>
+  </div>
+
+{{- else }}
+  {{- /* Everything else (extended admonitions, unknown types) falls back to a normal blockquote */ -}}
+  <blockquote>
+    {{ .Text | safeHTML }}
+  </blockquote>
+{{- end -}}

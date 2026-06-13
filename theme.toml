@@ -1,0 +1,17 @@
+name = "catective"
+license = "MIT"
+licenselink = "https://github.com/Yasin1ar/catective/LICENSE"
+description = "A Hugo blog theme made for detective cats, but humans are also welcome."
+homepage = "https://github.com/Yasin1ar/catective"
+min_version = "0.120.0"
+tags = ["blog", "minimal", "responsive","darkmode","elegant","cat"]
+features = ["dark mode", "taxonomies", "social links"]
+
+[author]
+  name = "Yasin Amirany"
+  homepage = "https://amirany.ir"
+
+[formats]
+  [formats.html]
+    mediaType = "text/html"
+
