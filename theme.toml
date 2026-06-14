@@ -1,8 +1,8 @@
 name = "catective"
 license = "MIT"
-licenselink = "https://github.com/Yasin1ar/catective/LICENSE"
+licenselink = "https://github.com/Yasin1ar/hugo-theme-catective/LICENSE"
 description = "A Hugo blog theme made for detective cats, but humans are also welcome."
-homepage = "https://github.com/Yasin1ar/catective"
+homepage = "https://github.com/Yasin1ar/hugo-theme-catective"
 min_version = "0.120.0"
 tags = ["blog", "minimal", "responsive","darkmode","elegant","cat"]
 features = ["dark mode", "taxonomies", "social links"]

@@ -5,10 +5,16 @@
 A Hugo blog theme made for detective cats, but humans are also welcome. Design is cool while simple, and it's mobile-first layout. Suited for personal blogs and portfolios.
 
 # tldr:
-- place catective inside `themes/`
+- clone the theme: 
+    ```
+    git clone https://github.com/Yasin1ar/hugo-theme-catective.git themes/catective
+    ```
 - update the root `hugo.toml`; get inspired by `hugo.toml.example`
-- initilize the npm at root and then install `tailwindcss`; get inspired by `package.json.example`
-- then: `npm install`
+- initilize the npm at root and then install `tailwindcss`; get inspired by `package.json.example`. (Move it to your hugo site Root!)
+- then: 
+    ```
+    npm install
+    ```
 - create scripts at `package.json` like the one I did at `package.json.example`
 - build. Run. publish. polish.
      
@@ -22,19 +28,55 @@ A Hugo blog theme made for detective cats, but humans are also welcome. Design i
 
 ## Installation
 
-### Option A: Use as submodule 
+### Option A: Use as submodule
+
+**INSTALL**:
 
 ```bash
-git submodule add https://github.com/Yasin1ar/catective.git themes/catective
+git submodule add https://github.com/Yasin1ar/hugo-theme-catective.git themes/catective
 
+```
+**UPDATE**: at your site's root , run:
+
+```
+git submodule update --remote --merge
 ```
 
 ### Option B: Clone into themes
 
+**INSTALL**:
+
 ```bash
 mkdir -p themes
-git clone https://github.com/Yasin1ar/catective.git themes/catective
-# If the theme lives in a subfolder: copy themes/catective out of the repo
+git clone https://github.com/Yasin1ar/hugo-theme-catective.git themes/catective
+```
+**UPDATE**: at your site's root:
+```bash
+cd themes/catective
+git pull
+```
+### Option C: Hugo Module
+**INSTALL**:
+
+- Install Go programming language in your operating system.
+
+- Intialize your own hugo mod:
+
+    ```
+    hugo mod init YOUR_OWN_GIT_REPOSITORY
+    ```
+
+- In your site's hugo.toml
+    ```bash
+    [module]
+    [[module.imports]]
+        path = "github.com/Yasin1ar/hugo-theme-catective"
+    ```
+
+**UPDATE**:
+
+```
+hugo mod get -u
 ```
 
 ## Setup
@@ -91,7 +133,6 @@ Set these in your site’s `hugo.toml` under `[params]` (and optionally in `[par
 | `author` | Your name (hero + meta) | `"Yasin catective"` |
 | `author_image` | Filename of hero image in `static/` | `"yasin-catective.png"` |
 | `description` | Default meta description | Site blurb |
-| `sameAs` | List of profile URLs (JSON-LD + social) | `["https://github.com/you", "https://t.me/you"]` |
 | `social_github` | GitHub profile URL | `"https://github.com/you"` |
 | `social_linkedin` | LinkedIn profile URL | `"https://linkedin.com/in/you"` |
 | `social_telegram` | Telegram profile URL | `"https://t.me/you"` |
