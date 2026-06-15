@@ -28,11 +28,11 @@
 /* Persian pattern switches with theme toggle via data-theme */
 .bg-persian-pattern {
     background-repeat: repeat;
-    background-image: url('/persian-pattern-light.png');
+    background-image: url('../persian-pattern-light.png');
 }
 
 [data-theme=dark] .bg-persian-pattern {
-    background-image: url('/persian-pattern.png');
+    background-image: url('../persian-pattern.png');
 }
 
 @font-face {

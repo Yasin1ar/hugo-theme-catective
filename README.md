@@ -2,7 +2,7 @@
 
 # catective theme
 
-A Hugo blog theme made for detective cats, but humans are also welcome. Design is cool while simple, and it's mobile-first layout. Suited for personal blogs and portfolios.
+A Hugo blog theme made for detective cats, but humans are also welcome. Design is cool while simple, and it's mobile-first layout. Suited for personal blogs and portfolios. [Check out the Live Demo](https://yasin1ar.github.io/catective-demo/)
 
 # tldr:
 - clone the theme: 
