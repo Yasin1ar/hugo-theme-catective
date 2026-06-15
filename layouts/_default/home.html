@@ -17,7 +17,7 @@
         </div>
         <div class="max-w-2xl border-[0.3rem] dark:bg-stone-700 bg-neutral-400 md:border-0 border-black px-4 text-center  rounded-xl md:text-left">
             <p class="text-xl/9 md:text-2xl/10 dark:text-amber-100 text-black">
-                {{ if $hero }}{{ $hero | safeHTML }}{{ else }}Hey! I'm <span class="whitespace-nowrap text-black rounded-md px-2 py-1 font-bangers text-3xl bg-amber-100">{{ $author }}</span>. A developer who enjoys building things on the web. Welcome to my blog.{{ end }}
+                {{ if $hero }}{{ $hero | markdownify | safeHTML }}{{ else }}Hey! I'm <span class="whitespace-nowrap text-black rounded-md px-2 py-1 font-bangers text-3xl bg-amber-100">{{ $author }}</span>. A developer who enjoys building things on the web. Welcome to my blog.{{ end }}
             </p>
         </div>
     </section>
