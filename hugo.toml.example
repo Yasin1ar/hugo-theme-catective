@@ -9,6 +9,7 @@ theme = "catective"
   sitename = "catective.dev"
   author = "Cat Doe"
   author_image = "me.png"
+  author_image_dark = "me.png"
   description = "The name's Whiskers. Midnight Whiskers. I've got nine lives and eight unsolved cases—the ninth one's your missing sock. I nap hard, solve harder, and once framed a goldfish for a crime I committed myself. Don't tell anyone. That's between us... and my portfolio. *Meow.*"
   social_github = 'https://github.com/you'
   social_linkedin = 'https://linkedin.com/in/you'

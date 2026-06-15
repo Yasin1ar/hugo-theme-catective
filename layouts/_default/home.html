@@ -1,8 +1,8 @@
 {{ define "main" }}
 {{ $hasPosts := where .Site.RegularPages "Section" "posts" }}
 {{ $author := site.Params.author | default "Author" }}
-{{ $authorImage := site.Params.avatar_image | default "avatar.png" }}
-{{ $authorImageDark := site.Params.avatar_image_dark | default "avatar-dark.png" }}
+{{ $authorImage := site.Params.author_image | default "avatar.png" }}
+{{ $authorImageDark := site.Params.author_image_dark | default "avatar-dark.png" }}
 {{ $hero := site.Params.hero | default site.Params.description }}
 <section class="bg-persian-pattern flex-1 flex flex-col dark:select-text-green-700 ">
     <!-- hero card section -->
