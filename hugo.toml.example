@@ -21,3 +21,6 @@ theme = "catective"
 [[menus.main]]
   name = "Posts"
   pageRef = "posts"
+
+[outputs]
+home = ["HTML", "RSS", "Sitemap"]
