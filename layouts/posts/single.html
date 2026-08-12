@@ -44,32 +44,7 @@
         <article class="mt-4 prose prose-lg px-[1rem] max-w-none text-xl font-ComicRelief pb-[3rem] custom-prose min-h-screen">
             {{ .Content }}
         </article>
-
-        <!-- RATING SECTION -->
-        <div class="text-center pt-4 pb-[2rem] bg-neutral-500 dark:bg-neutral-900">
-            <h2 class="text-xl font-bold dark:text-amber-200 text-neutral-950 mb-4">Rate this post</h2>
-            <div class="flex justify-center gap-2 mb-4 star-rating" id="star-rating">
-                {{ range $i := (seq 5) }}
-                <button class="text-3xl transition-colors cursor-pointer text-stone-600 hover:text-amber-400"
-                    data-rating="{{ $i }}" aria-label="Rate {{ $i }} star{{ if ne $i 1 }}s{{ end }}">
-                    ★
-                </button>
-                {{ end }}
-            </div>
-            <p class="dark:text-stone-400 text-sky-100 text-sm">Your feedback helps us improve!</p>
-        </div>
-
-        <!-- MODAL -->
-        <div id="prankModal" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center">
-            <div class="bg-neutral-900 p-8 rounded-lg w-full max-w-md mx-4 text-center">
-                <h3 class="text-2xl font-bold dark:text-amber-200 text-sky-100 mb-4">kidding!</h3>
-                <p class="text-stone-300 mb-6">We don't actually have a rating system! But thanks anyway! it's so sweet of you ...</p>
-                <button id="closeModalBtn" class="bg-stone-700 hover:bg-stone-600 text-white px-6 py-2 rounded-lg transition-colors">
-                    Close
-                </button>
-            </div>
-        </div>
-
+        
         <!-- RELATED POSTS -->
         {{ $related := .Site.RegularPages.Related . | first 3 }}
         {{ if not $related }}

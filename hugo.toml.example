@@ -8,6 +8,8 @@ theme = "catective"
 [params]
   sitename = "catective.dev"
   author = "Cat Doe"
+  alternate_names = ["Mr.Meow"]
+  job_title = "Detective"
   author_image = "me.png"
   author_image_dark = "me.png"
   description = "The name's Whiskers. Midnight Whiskers. I've got nine lives and eight unsolved cases—the ninth one's your missing sock. I nap hard, solve harder, and once framed a goldfish for a crime I committed myself. Don't tell anyone. That's between us... and my portfolio. *Meow.*"
@@ -15,6 +17,10 @@ theme = "catective"
   social_linkedin = 'https://linkedin.com/in/you'
   social_telegram = 'https://t.me/you'
   social_email = 'mailto:you@example.com'
+  sameAs = [
+    'https://github.com/you/',
+    'https://linkedin.com/in/you',
+    'https://t.me/you']
   
   # want more social links? add more vars like them. Then edit the catective\layouts\partials\social-links.html. Take a look at it, see the pattern, add more to that pattern, and you done.
 

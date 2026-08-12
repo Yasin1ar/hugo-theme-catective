@@ -6,6 +6,8 @@
             document.documentElement.setAttribute('data-theme',t||d);
         })();
     </script>
+    <link rel="preload" href="/fonts/Bangers-Regular.ttf" as="font" crossorigin>
+    <link rel="preload" href="/fonts/MajorMonoDisplay-Regular.ttf" as="font" crossorigin>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="{{ if .IsHome }}{{ site.Params.description }}{{ else }}{{ .Description }}{{ end }}" />
@@ -26,11 +28,12 @@
     <title>{{ if .IsHome }}{{ site.Title }}{{ else }}{{ printf "%s | %s" .Title site.Title }}{{ end }}</title>
 
     <script type="application/ld+json">
-        {
+    {
             "@context": "https://schema.org",
             "@type": "Person",
             "name": "{{ site.Params.author | default "Author" }}",
-            "jobTitle": "{{ site.Params.job_title | default "Developer" }}",
+            "alternateName": {{ site.Params.alternate_names | default (slice "cat") | jsonify }},
+            "jobTitle": "{{ site.Params.job_title | default "detective" }}",
             "url": "{{ site.BaseURL }}",
             "sameAs": {{ site.Params.sameAs | default (slice "https://github.com" "https://linkedin.com") | jsonify }},
             "description": "{{ site.Params.description | default "" }}"
@@ -41,18 +44,10 @@
     <link rel="stylesheet" href="{{ $style.RelPermalink }}">
 
     {{ $themeToggle := resources.Get "js/theme-toggle.js" | js.Build | minify | fingerprint }}
-    <script src="{{ $themeToggle.RelPermalink }}" integrity="{{ $themeToggle.Data.Integrity }}" crossorigin="anonymous" defer></script>
-    {{ $mobileMenu := resources.Get "js/mobile-menu.js" | js.Build | minify | fingerprint }}
-    <script src="{{ $mobileMenu.RelPermalink }}"
-            integrity="{{ $mobileMenu.Data.Integrity }}"
+    <script src="{{ $themeToggle.RelPermalink }}" integrity="{{ $themeToggle.Data.Integrity }}" crossorigin="anonymous"></script>
+    {{ $mainJS := resources.Get "js/main.js" | js.Build | minify | fingerprint }}
+    <script src="{{ $mainJS.RelPermalink }}"
+            integrity="{{ $mainJS.Data.Integrity }}"
             crossorigin="anonymous"
             defer></script>
-
-    {{ if eq .Section "posts" }}
-        {{ $ratingSystem := resources.Get "js/rating-system.js" | js.Build | minify | fingerprint }}
-        <script src="{{ $ratingSystem.RelPermalink }}"
-                integrity="{{ $ratingSystem.Data.Integrity }}"
-                crossorigin="anonymous"
-                defer></script>
-    {{ end }}
 </head>
