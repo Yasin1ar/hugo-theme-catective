@@ -1,9 +1,10 @@
 {{ define "main" }}
 <div class="dark:bg-neutral-800 bg-neutral-200 font-mono">
-    <div class="max-w-3xl mx-auto dark:bg-stone-500 bg-neutral-300 md:border-x-[0.3rem] border-black">
-        
+    <div class="max-w-[50rem] mx-auto dark:bg-stone-500 bg-neutral-300 md:border-x-[0.3rem] border-black">
+
         <!-- HEADER SECTION -->
-        <div class="text-center dark:bg-neutral-900 bg-neutral-500 text-neutral-950 dark:text-amber-200 p-2 font-bangers">
+        <div
+            class="text-center dark:bg-neutral-900 bg-neutral-500 text-neutral-950 dark:text-amber-200 p-2 font-bangers">
             <h1 class="text-3xl">{{ .Title }}</h1>
             {{ $dateMachine := .Date | time.Format "2006-01-02T15:04:05-07:00" }}
             {{ $dateHuman := .Date | time.Format ":date_long" }}
@@ -19,12 +20,19 @@
             </time>
             {{ end }}
             {{ end }}
-            
+
+            <br>
+            {{ if .Params.showReadingTime }}
+            <span class=" text-sm font-mono">
+                {{ .ReadingTime }} min read
+            </span>
+
+            {{ end }}
             <div class="flex flex-wrap justify-center gap-2 mt-1 font-verdana font-bold">
                 {{ partial "terms.html" (dict "taxonomy" "categories" "page" .) }}
                 {{ partial "terms.html" (dict "taxonomy" "tags" "page" .) }}
             </div>
-            
+
             {{ if .Params.showReadingTime }}
             <span>
                 {{ .ReadingTime }} min read
@@ -40,11 +48,40 @@
         {{ end }}
         {{ end }}
 
+        <!-- TABLE OF CONTENTS -->
+        {{ if and .Params.toc (ne .Params.toc false) }}
+        {{ with .TableOfContents }}
+        {{ if ne . "<nav id=\"TableOfContents\"></nav>" }}
+        <div class="px-[1rem] py-4" id="static-toc">
+            <div class="bg-neutral-600 dark:bg-neutral-800 rounded-lg p-4 border-[0.2rem] border-black">
+                <h2 class="text-2xl font-bangers text-sky-100 dark:text-amber-200 mb-3 text-center">
+                    📑 Table of Contents
+                </h2>
+                <div class="toc-content text-neutral-950 dark:text-amber-200 font-mono">
+                    {{ . }}
+                </div>
+            </div>
+        </div>
+        {{ end }}
+        {{ end }}
+        {{ end }}
+
+        <!-- FLOATING BACK TO TOP BUTTON -->
+        <button id="floatingTopBtn"
+            class="fixed right-6 z-50 bg-neutral-700 dark:bg-neutral-900 text-sky-100 dark:text-amber-200 p-4 rounded-full shadow-2xl hover:bg-neutral-800 dark:hover:bg-neutral-700 transition-all duration-300 border-2 border-black hover:scale-110 opacity-0 pointer-events-none"
+            aria-label="Back to Top" style="bottom: 3rem;">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18" />
+            </svg>
+        </button>
+
         <!-- CONTENT -->
-        <article class="mt-4 prose prose-lg px-[1rem] max-w-none text-xl font-ComicRelief pb-[3rem] custom-prose min-h-screen">
+        <article
+            class="mt-4 prose prose-lg px-[1rem] max-w-none text-xl font-ComicRelief pb-[3rem] custom-prose min-h-screen">
             {{ .Content }}
         </article>
-        
+
         <!-- RELATED POSTS -->
         {{ $related := .Site.RegularPages.Related . | first 3 }}
         {{ if not $related }}
@@ -60,7 +97,8 @@
                 <div class="w-full border-dotted border-t-[0.3rem] border-black"></div>
             </div>
             <div class="relative flex justify-center">
-                <span class="bg-neutral-600 px-4 text-2xl font-bangers mb-2 border-x-[0.3rem] border-black text-sky-100 dark:text-amber-200">
+                <span
+                    class="bg-neutral-600 px-4 text-2xl font-bangers mb-2 border-x-[0.3rem] border-black text-sky-100 dark:text-amber-200">
                     More to Explore
                 </span>
             </div>
@@ -68,7 +106,8 @@
         <div class="px-[1rem] pb-8">
             <div class="grid gap-4">
                 {{ range $related }}
-                <a href="{{ .RelPermalink }}" class="block bg-neutral-700 dark:bg-neutral-900 text-sky-100 dark:text-amber-200 p-4 rounded hover:bg-neutral-800 transition-colors">
+                <a href="{{ .RelPermalink }}"
+                    class="block bg-neutral-700 dark:bg-neutral-900 text-sky-100 dark:text-amber-200 p-4 rounded hover:bg-neutral-800 transition-colors">
                     <h4 class="text-xl font-bold mb-2">{{ .Title }}</h4>
                     <time datetime="{{ .Date | time.Format " 2006-01-02T15:04:05-07:00" }}" class="text-sm font-mono">
                         {{ .Date | time.Format ":date_long" }}
@@ -76,7 +115,8 @@
                     {{ with .GetTerms "tags" }}
                     <div class="flex flex-wrap gap-2 mt-2">
                         {{ range . }}
-                        <span class="text-sm text-neutral-950 dark:text-amber-200 bg-sky-200 dark:bg-zinc-800 px-2 py-1 rounded">
+                        <span
+                            class="text-sm text-neutral-950 dark:text-amber-200 bg-sky-200 dark:bg-zinc-800 px-2 py-1 rounded">
                             {{ .LinkTitle }}
                         </span>
                         {{ end }}

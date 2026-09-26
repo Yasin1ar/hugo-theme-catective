@@ -200,3 +200,27 @@ try {
 } catch (error) {
     console.error('Failed to create mobile menu instance:', error);
 }
+
+
+// JavaScript for Back to Top 
+document.addEventListener('DOMContentLoaded', function () {
+    const floatingTopBtn = document.getElementById('floatingTopBtn');
+
+    function scrollToTop() {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function handleScroll() {
+        if (window.scrollY > 300) {
+            floatingTopBtn.classList.remove('opacity-0', 'pointer-events-none');
+            floatingTopBtn.classList.add('opacity-100', 'pointer-events-auto');
+        } else {
+            floatingTopBtn.classList.add('opacity-0', 'pointer-events-none');
+            floatingTopBtn.classList.remove('opacity-100', 'pointer-events-auto');
+        }
+    }
+
+    floatingTopBtn.addEventListener('click', scrollToTop);
+    window.addEventListener('scroll', handleScroll);
+    handleScroll();
+});
