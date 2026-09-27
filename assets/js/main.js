@@ -202,12 +202,22 @@ try {
 }
 
 
-// JavaScript for Back to Top 
+// Back to Top floating button  
+
 document.addEventListener('DOMContentLoaded', function () {
     const floatingTopBtn = document.getElementById('floatingTopBtn');
 
+    if (!floatingTopBtn) {
+        return;
+    }
+
     function scrollToTop() {
         window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function isNearBottom() {
+        const threshold = Math.min(window.innerHeight * 1.2, 180);
+        return window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - threshold;
     }
 
     function handleScroll() {
@@ -218,9 +228,16 @@ document.addEventListener('DOMContentLoaded', function () {
             floatingTopBtn.classList.add('opacity-0', 'pointer-events-none');
             floatingTopBtn.classList.remove('opacity-100', 'pointer-events-auto');
         }
+
+        if (isNearBottom()) {
+            floatingTopBtn.classList.add('is-above-footer');
+        } else {
+            floatingTopBtn.classList.remove('is-above-footer');
+        }
     }
 
     floatingTopBtn.addEventListener('click', scrollToTop);
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener('resize', handleScroll);
     handleScroll();
 });

@@ -723,3 +723,160 @@
   [data-theme="dark"] .markdown-alert.markdown-alert-caution {
     --alert-bg: rgba(207, 34, 46, 0.15);
   }
+
+
+/* ------------------------------------------- Floating Back to Top Button */
+#floatingTopBtn {
+    --floating-top-btn-bottom: 3rem;
+    bottom: var(--floating-top-btn-bottom);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(4px);
+    background: rgba(64, 64, 64, 0.95);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 10000;
+}
+
+#floatingTopBtn:hover {
+    transform: scale(1.1) rotate(-3deg);
+}
+
+/* Visibility states */
+#floatingTopBtn {
+    opacity: 0;
+    pointer-events: none;
+    transform: scale(0.8);
+}
+
+#floatingTopBtn.opacity-100 {
+    opacity: 1;
+    pointer-events: auto;
+    transform: scale(1);
+}
+
+#floatingTopBtn.opacity-0 {
+    opacity: 0;
+    transform: scale(0.8);
+}
+
+/* Responsive */
+#floatingTopBtn.is-above-footer {
+    bottom: 10rem;
+}
+
+/* Mobile phones (portrait + landscape) */
+@media (max-width: 767px) {
+    #floatingTopBtn {
+        --floating-top-btn-bottom: 3rem;
+        padding: 0.75rem;
+        right: 0.85rem;
+    }
+
+    #floatingTopBtn.is-above-footer {
+        bottom: 7rem;
+    }
+
+    #floatingTopBtn svg {
+        height: 1.5rem;
+        width: 1.5rem;
+    }
+}
+
+/* Tablets and small desktops */
+@media (min-width: 768px) and (max-width: 1024px) {
+    #floatingTopBtn {
+        padding: 0.9rem;
+        right: 1.5rem;
+        bottom: 2rem;
+    }
+}
+
+/* Large screens */
+@media (min-width: 1025px) {
+    #floatingTopBtn {
+        padding: 1rem;
+        right: 2rem;
+        bottom: 2.5rem;
+    }
+}
+
+/* Ensure touch target ≥ 44px */
+@media (hover: none) and (pointer: coarse) {
+    #floatingTopBtn {
+        min-height: 44px;
+        min-width: 44px;
+    }
+}
+
+/* Focus state for accessibility */
+#floatingTopBtn:focus-visible {
+    outline: 2px solid #eab308;
+    outline-offset: 2px;
+}
+
+/* ------------------------------------------- Static TOC indentation */
+.toc-content nav {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.toc-content ul {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+}
+
+.toc-content li {
+    padding: 0.25rem 0;
+    line-height: 1.5;
+}
+
+/* Proper indentation for nested headings */
+.toc-content ul ul {
+    padding-left: 1.5rem;
+    /* Indent level 2 */
+}
+
+.toc-content ul ul ul {
+    padding-left: 3rem;
+    /* Indent level 3 */
+}
+
+.toc-content ul ul ul ul {
+    padding-left: 4.5rem;
+    /* Indent level 4 */
+}
+
+.toc-content a {
+    color: inherit;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    display: inline-block;
+    padding: 0.125rem 0.5rem;
+    border-radius: 0.25rem;
+    width: 100%;
+}
+
+.toc-content a:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateX(4px);
+    color: #eab308;
+}
+
+.dark .toc-content a:hover {
+    background: rgba(255, 255, 255, 0.05);
+    color: #fbbf24;
+}
+
+/* Alternative: use em units for better scalability */
+.toc-content ul ul {
+    padding-left: 1.2em;
+}
+
+.toc-content ul ul ul {
+    padding-left: 2.4em;
+}
+
+.toc-content ul ul ul ul {
+    padding-left: 3.6em;
+}
