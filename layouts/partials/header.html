@@ -1,39 +1,54 @@
 <header class="dark:bg-stone-600 bg-neutral-300 border-b-[0.3rem] border-black font-bangers text-2xl">
-    <div class="flex items-center m-auto w-5/6 md:w-3/5 flex-wrap">
-        <a href="{{ .Site.Home.RelPermalink }}" class="font-MajorMonoDisplay">
-            <h1 class="text-3xl md:text-4xl md:font-black">{{ site.Params.sitename | default "catective" }}</h1>
+    <div class="flex gap-x-4 items-center m-auto w-5/6 md:w-3/5 flex-wrap">
+        <a href="{{ .Site.Home.RelPermalink }}" class="shrink-0 mr-auto  font-MajorMonoDisplay">
+            <h1 class="text-2xl md:text-4xl md:font-black">{{ site.Params.sitename | default "catective" }}</h1>
         </a>
 
         <nav
             class="hidden md:flex space-x-[2rem] bg-sky-50 dark:bg-slate-950 px-2 my-1 rounded-md items-center ml-auto">
-            {{ range .Site.Menus.main }}
-            <a href="{{ .URL }}"
-                class="dark:hover:text-stone-400 hover:text-neutral-600 text-neutral-950 dark:text-amber-100 transition-colors duration-300">
-                {{ .Name }}
-            </a>
-            {{ end }}
-        </nav>
-        <button id="theme-toggle-button" data-theme-toggle type="button" aria-label="Toggle dark mode"
-            aria-pressed="false" class="hidden md:block p-2 rounded-md hover:bg-stone-400 transition-colors mr-2"
-            title="Toggle theme">
-            <svg data-icon="moon" class="w-6 h-6 dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                aria-hidden="true">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
-            </svg>
-            <svg data-icon="sun" class="w-6 h-6 hidden dark:block text-amber-200" fill="none" stroke="currentColor"
-                viewBox="0 0 24 24" aria-hidden="true">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
-            </svg>
-        </button>
+            <!-- Desktop Search Bar (Hidden on small screens) -->
+            <form action="{{ " search/" | relURL }}" method="GET" role="search"
+                class="relative hidden font-tgnd lg:flex flex-1 min-w-[140px] max-w-xs my-1" data-search-form
+                data-search-index="{{ " index.json" | relURL }}">
+                <div class="relative  flex items-center w-full">
+                    <input type="search" name="q" placeholder="⌕ Search Posts..."
+                        class="w-full bg-transparent text-white placeholder-amber-100  text-lg lg:text-xl focus:outline-none border-b-2 border-stone-800 focus:border-black transition-colors px-1 py-0.5"
+                        aria-label="Search" autocomplete="off" aria-controls="desktop-search-results" />
+                </div>
+                <div id="desktop-search-results" data-search-results
+                    class="absolute left-0 right-0 top-full z-50 mt-1 hidden overflow-hidden  rounded-md border-2 border-black bg-neutral-950 text-base shadow-lg"
+                    role="listbox"></div>
+            </form>
 
-        <button id="mobile-menu-button" class="md:hidden text-black focus:outline-none ml-auto"
-            aria-label="Toggle menu">
-            <svg class="w-[2.5rem] h-[2.5rem]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-            </svg>
-        </button>
+            <nav class="hidden md:flex space-x-[2rem]  bg-slate-950 px-2 my-1 rounded-md items-center  shrink-0">
+                {{ range .Site.Menus.main }}
+                <a href="{{ .URL }}"
+                    class="dark:hover:text-stone-400 hover:text-neutral-600 text-neutral-950 dark:text-amber-100 transition-colors duration-300">
+                    {{ .Name }}
+                </a>
+                {{ end }}
+            </nav>
+            <button id="theme-toggle-button" data-theme-toggle type="button" aria-label="Toggle dark mode"
+                aria-pressed="false" class="hidden md:block p-2 rounded-md hover:bg-stone-400 transition-colors mr-2"
+                title="Toggle theme">
+                <svg data-icon="moon" class="w-6 h-6 dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                    aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                </svg>
+                <svg data-icon="sun" class="w-6 h-6 hidden dark:block text-amber-200" fill="none" stroke="currentColor"
+                    viewBox="0 0 24 24" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+                </svg>
+            </button>
+
+            <button id="mobile-menu-button" class="md:hidden text-black focus:outline-none ml-auto"
+                aria-label="Toggle menu">
+                <svg class="w-[2.5rem] h-[2.5rem]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+            </button>
     </div>
 
     <!-- Mobile Navigation -->
@@ -45,6 +60,19 @@
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                 </svg>
             </button>
+            <!-- Mobile Search Bar -->
+            <form action="{{ " search/" | relURL }}" method="GET" role="search"
+                class="font-tgnd relative w-4/5 max-w-xs" data-search-form data-search-index="{{ " index.json" | relURL
+                }}">
+                <div class="relative flex items-center w-full">
+                    <input type="search" name="q" placeholder="⌕ Search Posts..."
+                        class="w-full bg-transparent text-white placeholder-amber-100  text-2xl focus:outline-none border-b-2 border-stone-800 focus:border-amber-400 transition-colors px-1 py-1 text-center"
+                        aria-label="Search mobile" autocomplete="off" aria-controls="mobile-search-results" />
+                </div>
+                <div id="mobile-search-results" data-search-results
+                    class="absolute left-0 right-0 top-full z-50 mt-1 hidden overflow-hidden rounded-md border-2 border-black bg-neutral-950 text-base shadow-lg"
+                    role="listbox"></div>
+            </form>
             {{ range .Site.Menus.main }}
             <a href="{{ .URL }}"
                 class="text-stone-400 text-4xl no-underline hover:text-amber-400 transition-colors duration-300">
